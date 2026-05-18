@@ -1,0 +1,883 @@
+/* ============================================== */
+/* 记忆翻牌游戏样式文件 */
+/* 作者：Memory Card Game */
+/* 版本：1.0 */
+/* ============================================== */
+
+/* -------------------------- */
+/* 全局样式重置 */
+/* -------------------------- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* -------------------------- */
+/* 动画关键帧定义 */
+/* -------------------------- */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes flipIn {
+    0% {
+        opacity: 0;
+        transform: rotateY(90deg) scale(0.8);
+    }
+    50% {
+        opacity: 0.5;
+    }
+    100% {
+        opacity: 1;
+        transform: rotateY(0deg) scale(1);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 0 20px rgba(139, 92, 246, 0.5);
+    }
+    50% {
+        transform: scale(1.05);
+        box-shadow: 0 0 40px rgba(139, 92, 246, 0.8);
+    }
+}
+
+@keyframes glow {
+    0%, 100% {
+        box-shadow: 0 0 10px rgba(34, 197, 94, 0.5),
+                    0 0 20px rgba(34, 197, 94, 0.3),
+                    0 0 30px rgba(34, 197, 94, 0.2);
+    }
+    50% {
+        box-shadow: 0 0 20px rgba(34, 197, 94, 0.8),
+                    0 0 40px rgba(34, 197, 94, 0.5),
+                    0 0 60px rgba(34, 197, 94, 0.3);
+    }
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-20px);
+    }
+    60% {
+        transform: translateY(-10px);
+    }
+}
+
+@keyframes modalIn {
+    from {
+        opacity: 0;
+        transform: scale(0.7);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes confetti {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(100vh) rotate(720deg);
+        opacity: 0;
+    }
+}
+
+/* -------------------------- */
+/* 基础样式 */
+/* -------------------------- */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+    min-height: 100vh;
+    color: #fff;
+    animation: fadeIn 0.8s ease-out;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.container {
+    max-width: 900px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* -------------------------- */
+/* 游戏头部 */
+/* -------------------------- */
+.game-header {
+    text-align: center;
+    margin-bottom: 20px;
+    animation: fadeIn 0.6s ease-out 0.2s both;
+}
+
+.game-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.game-title i {
+    font-size: 32px;
+    background: linear-gradient(135deg, #8b5cf6, #ec4899);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.game-title h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #a855f7, #ec4899);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 0 30px rgba(168, 85, 247, 0.3);
+}
+
+/* -------------------------- */
+/* 游戏信息面板 */
+/* -------------------------- */
+.game-info {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.info-item {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 12px 24px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+}
+
+.info-item:hover {
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateY(-2px);
+}
+
+.info-item i {
+    font-size: 18px;
+    color: #a855f7;
+}
+
+.info-item .label {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.info-item .value {
+    font-size: 20px;
+    font-weight: 700;
+    color: #fff;
+    min-width: 40px;
+}
+
+.score .value {
+    color: #fbbf24;
+}
+
+.timer .value {
+    color: #60a5fa;
+}
+
+.pairs .value {
+    color: #34d399;
+}
+
+/* -------------------------- */
+/* 游戏控制按钮 */
+/* -------------------------- */
+.game-controls {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.difficulty-select {
+    padding: 10px 20px;
+    border-radius: 10px;
+    background: rgba(15, 12, 41, 0.9);
+    border: 1px solid rgba(168, 85, 247, 0.5);
+    color: #fff;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 120px;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23a855f7' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 16px;
+}
+
+.difficulty-select:hover {
+    background-color: rgba(48, 43, 99, 0.9);
+    border-color: rgba(168, 85, 247, 0.8);
+}
+
+.difficulty-select:focus {
+    outline: none;
+    box-shadow: 0 0 20px rgba(168, 85, 247, 0.5);
+}
+
+.difficulty-select option {
+    background: #0f0c29;
+    color: #fff;
+    padding: 10px;
+    border: none;
+}
+
+.control-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.sound-btn {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    width: 44px;
+    height: 44px;
+    justify-content: center;
+}
+
+.sound-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.sound-btn.muted i {
+    color: #f87171;
+}
+
+.restart-btn {
+    background: linear-gradient(135deg, #8b5cf6, #ec4899);
+    color: #fff;
+    box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
+}
+
+.restart-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(139, 92, 246, 0.6);
+}
+
+.restart-btn:active {
+    transform: translateY(0);
+}
+
+/* -------------------------- */
+/* 操作提示 */
+/* -------------------------- */
+.game-hint {
+    text-align: center;
+    margin-bottom: 25px;
+    animation: fadeIn 0.6s ease-out 0.4s both;
+}
+
+.game-hint p {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 14px;
+}
+
+.game-hint i {
+    color: #fbbf24;
+}
+
+/* -------------------------- */
+/* 游戏面板 */
+/* -------------------------- */
+.game-board {
+    display: grid;
+    gap: 12px;
+    justify-content: center;
+    animation: fadeIn 0.6s ease-out 0.6s both;
+    position: relative;
+}
+
+/* 简单难度 4x4 */
+.game-board.easy {
+    grid-template-columns: repeat(4, 1fr);
+}
+
+/* 困难难度 6x6 */
+.game-board.hard {
+    grid-template-columns: repeat(6, 1fr);
+}
+
+/* -------------------------- */
+/* 卡牌样式 */
+/* -------------------------- */
+.card {
+    aspect-ratio: 1;
+    perspective: 1000px;
+    cursor: pointer;
+}
+
+.card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-style: preserve-3d;
+}
+
+.card.flipped .card-inner {
+    transform: rotateY(180deg);
+}
+
+.card.matched .card-inner {
+    animation: glow 1.5s ease-in-out infinite;
+}
+
+.card-front,
+.card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    user-select: none;
+}
+
+/* 卡牌背面 */
+.card-back {
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.8), rgba(236, 72, 153, 0.8));
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 
+        0 4px 20px rgba(139, 92, 246, 0.3),
+        inset 0 2px 10px rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+}
+
+.card-back:hover {
+    transform: translateY(-3px);
+    box-shadow: 
+        0 8px 30px rgba(139, 92, 246, 0.5),
+        inset 0 2px 10px rgba(255, 255, 255, 0.1);
+}
+
+.card-back::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 16px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+}
+
+.card-back i {
+    font-size: 1.8rem;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+/* 卡牌正面 */
+.card-front {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    transform: rotateY(180deg);
+}
+
+.card.matched .card-front {
+    background: rgba(34, 197, 94, 0.2);
+    border-color: rgba(34, 197, 94, 0.5);
+}
+
+/* -------------------------- */
+/* 配对成功特效 */
+/* -------------------------- */
+.match-effect {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    pointer-events: none;
+    z-index: 999;
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.match-effect.show {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.match-effect.hide {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(1.5);
+}
+
+.effect-text {
+    font-size: 3rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #fbbf24, #f59e0b, #ef4444);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 0 30px rgba(251, 191, 36, 0.5);
+    animation: textPulse 0.5s ease-in-out infinite;
+    display: block;
+    text-align: center;
+}
+
+@keyframes textPulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+}
+
+.particles {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.particle {
+    position: absolute;
+    font-size: 1.5rem;
+    opacity: 0;
+    animation: particleExplode 0.8s ease-out forwards;
+}
+
+.particle:nth-child(1) { animation-delay: 0s; left: -60px; top: -30px; }
+.particle:nth-child(2) { animation-delay: 0.1s; left: 60px; top: -20px; }
+.particle:nth-child(3) { animation-delay: 0.2s; left: -40px; top: 40px; }
+.particle:nth-child(4) { animation-delay: 0.15s; left: 50px; top: 30px; }
+.particle:nth-child(5) { animation-delay: 0.25s; left: 0; top: -60px; }
+
+@keyframes particleExplode {
+    0% {
+        opacity: 1;
+        transform: translate(0, 0) scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(var(--tx, 50px), var(--ty, -50px)) scale(0);
+    }
+}
+
+.particle:nth-child(1) { --tx: -80px; --ty: -60px; }
+.particle:nth-child(2) { --tx: 80px; --ty: -50px; }
+.particle:nth-child(3) { --tx: -60px; --ty: 70px; }
+.particle:nth-child(4) { --tx: 70px; --ty: 60px; }
+.particle:nth-child(5) { --tx: 0; --ty: -100px; }
+
+/* -------------------------- */
+/* 胜利弹窗 */
+/* -------------------------- */
+.victory-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(5px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 100;
+}
+
+.victory-modal.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-content {
+    background: linear-gradient(135deg, rgba(15, 12, 41, 0.95), rgba(48, 43, 99, 0.95));
+    backdrop-filter: blur(20px);
+    border-radius: 25px;
+    padding: 40px;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    transform: scale(0.7);
+    animation: modalIn 0.4s ease-out forwards;
+    max-width: 400px;
+    width: 90%;
+}
+
+.modal-icon {
+    font-size: 6rem;
+    animation: bounce 1s ease infinite;
+    margin-bottom: 15px;
+}
+
+.modal-content h2 {
+    font-size: 1.8rem;
+    background: linear-gradient(135deg, #a855f7, #ec4899);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 25px;
+}
+
+.stats {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.stat {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 20px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+}
+
+.stat-label {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 14px;
+}
+
+.stat-value {
+    font-size: 18px;
+    font-weight: 700;
+    color: #fff;
+}
+
+.modal-btn {
+    width: 100%;
+    padding: 15px;
+    border-radius: 12px;
+    border: none;
+    background: linear-gradient(135deg, #8b5cf6, #ec4899);
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
+}
+
+.modal-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(139, 92, 246, 0.6);
+}
+
+.modal-btn:active {
+    transform: translateY(0);
+}
+
+.modal-btn.secondary {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: none;
+    margin-top: 10px;
+}
+
+.modal-btn.secondary:hover {
+    background: rgba(255, 255, 255, 0.2);
+    box-shadow: none;
+}
+
+/* -------------------------- */
+/* 排行榜按钮 */
+/* -------------------------- */
+.leaderboard-btn {
+    background: linear-gradient(135deg, #fbbf24, #f59e0b);
+    color: #1f2937;
+    box-shadow: 0 4px 15px rgba(251, 191, 36, 0.4);
+}
+
+.leaderboard-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(251, 191, 36, 0.6);
+}
+
+/* -------------------------- */
+/* 排行榜弹窗 */
+/* -------------------------- */
+.leaderboard-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(5px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 100;
+}
+
+.leaderboard-modal.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 28px;
+    cursor: pointer;
+    padding: 0 10px;
+    transition: color 0.3s ease;
+}
+
+.close-btn:hover {
+    color: #fff;
+}
+
+.leaderboard-tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.tab-btn {
+    flex: 1;
+    padding: 12px;
+    border-radius: 10px;
+    border: none;
+    background: rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.tab-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.tab-btn.active {
+    background: linear-gradient(135deg, #8b5cf6, #ec4899);
+    color: #fff;
+}
+
+.leaderboard-content {
+    max-height: 300px;
+    overflow-y: auto;
+    margin-bottom: 20px;
+}
+
+.leaderboard-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.leaderboard-item {
+    display: flex;
+    align-items: center;
+    padding: 12px 15px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.leaderboard-item:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.rank {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 14px;
+    margin-right: 15px;
+}
+
+.rank.gold {
+    background: linear-gradient(135deg, #fbbf24, #f59e0b);
+    color: #1f2937;
+}
+
+.rank.silver {
+    background: linear-gradient(135deg, #9ca3af, #6b7280);
+    color: #fff;
+}
+
+.rank.bronze {
+    background: linear-gradient(135deg, #d97706, #b45309);
+    color: #fff;
+}
+
+.rank.other {
+    background: rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.score-info {
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+}
+
+.score-text {
+    color: #fff;
+    font-weight: 600;
+}
+
+.time-text {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 14px;
+}
+
+.no-records {
+    text-align: center;
+    color: rgba(255, 255, 255, 0.5);
+    padding: 40px;
+}
+
+/* -------------------------- */
+/* 响应式设计 */
+/* -------------------------- */
+@media (max-width: 768px) {
+    .game-title h1 {
+        font-size: 1.8rem;
+    }
+    
+    .game-info {
+        gap: 15px;
+    }
+    
+    .info-item {
+        padding: 10px 16px;
+    }
+    
+    .info-item .value {
+        font-size: 16px;
+    }
+    
+    .game-board {
+        gap: 8px;
+    }
+    
+    .card-front,
+    .card-back {
+        font-size: 1.8rem;
+        border-radius: 12px;
+    }
+    
+    .modal-content {
+        padding: 30px 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 15px;
+    }
+    
+    .game-title h1 {
+        font-size: 1.5rem;
+    }
+    
+    .game-info {
+        gap: 10px;
+    }
+    
+    .info-item {
+        padding: 8px 12px;
+    }
+    
+    .info-item i {
+        font-size: 14px;
+    }
+    
+    .info-item .label {
+        font-size: 12px;
+    }
+    
+    .info-item .value {
+        font-size: 14px;
+    }
+    
+    .game-board {
+        gap: 6px;
+    }
+    
+    .card-front,
+    .card-back {
+        font-size: 1.4rem;
+        border-radius: 10px;
+    }
+    
+    .modal-icon {
+        font-size: 4rem;
+    }
+    
+    .modal-content h2 {
+        font-size: 1.5rem;
+    }
+}
