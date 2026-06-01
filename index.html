@@ -5,17 +5,67 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Memory Card Game - 记忆翻牌游戏</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="start-screen.css">
     <!-- 引入图标库 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
     <!-- 页面容器 -->
     <div class="container">
+        <!-- 赛博朋克开始界面 -->
+        <div class="start-screen" id="startScreen">
+            <div class="start-content">
+                <div class="glitch-container">
+                    <h1 class="glitch-text" data-text="CYBER MEMORY">CYBER MEMORY</h1>
+                    <h2 class="subtitle">赛博朋克记忆翻牌</h2>
+                </div>
+                
+                <div class="start-visual">
+                    <div class="floating-cards">
+                        <div class="card-float">🧠</div>
+                        <div class="card-float"></div>
+                        <div class="card-float">🎮</div>
+                        <div class="card-float">🔮</div>
+                    </div>
+                </div>
+                
+                <div class="start-controls">
+                    <div class="difficulty-selection">
+                        <label>选择难度：</label>
+                        <select id="startDifficulty">
+                            <option value="easy">简单 (4×4)</option>
+                            <option value="hard">困难 (6×6)</option>
+                            <option value="extreme">极限 (8×8)</option>
+                        </select>
+                    </div>
+                    
+                    <button class="cyber-btn" id="cyberStartBtn">
+                        <span class="btn-text">START GAME</span>
+                        <span class="btn-glitch"></span>
+                    </button>
+                    
+                    <div class="start-options">
+                        <button class="option-link" id="openLeaderboard">
+                            <i class="fas fa-trophy"></i> 排行榜
+                        </button>
+                        <button class="option-link" id="openResume">
+                            <i class="fas fa-file-alt"></i> 个人简历
+                        </button>
+                        <button class="option-link" id="openTutorial">
+                            <i class="fas fa-question-circle"></i> 玩法说明
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="scanline"></div>
+            </div>
+        </div>
+        
         <!-- 游戏头部信息栏 -->
         <header class="game-header">
             <div class="game-title">
                 <i class="fas fa-brain"></i>
-                <h1>记忆翻牌</h1>
+                <h1>记忆翻牌玩法</h1>
             </div>
             
             <!-- 游戏信息面板 -->
@@ -44,11 +94,17 @@
             
             <!-- 控制按钮 -->
             <div class="game-controls">
-                <!-- 难度选择 -->
-                <select id="difficulty" class="difficulty-select">
-                    <option value="easy">简单 (4×4)</option>
-                    <option value="hard">困难 (6×6)</option>
-                </select>
+                <!-- 简历按钮 -->
+                <button class="control-btn resume-btn" id="resumeBtn" title="查看简历">
+                    <i class="fas fa-file-alt"></i>
+                    <span>简历</span>
+                </button>
+                
+                <!-- 成就按钮 -->
+                <button class="control-btn achievement-btn" id="achievementBtn" title="查看成就">
+                    <i class="fas fa-medal"></i>
+                    <span>成就</span>
+                </button>
                 
                 <!-- 音效开关 -->
                 <button class="control-btn sound-btn" id="soundBtn" title="音效开关">
@@ -59,6 +115,12 @@
                 <button class="control-btn leaderboard-btn" id="leaderboardBtn">
                     <i class="fas fa-trophy"></i>
                     <span>排行榜</span>
+                </button>
+                
+                <!-- 返回首页按钮 -->
+                <button class="control-btn home-btn" id="homeBtn">
+                    <i class="fas fa-home"></i>
+                    <span>返回首页</span>
                 </button>
                 
                 <!-- 重新开始按钮 -->
@@ -74,6 +136,45 @@
             <p><i class="fas fa-lightbulb"></i> 点击卡牌翻开，找出所有配对！</p>
         </div>
         
+        <!-- 加载画面 -->
+        <div class="loading-screen" id="loadingScreen">
+            <div class="loading-content">
+                <div class="loading-icon">🎮</div>
+                <h2>赛博朋克记忆翻牌</h2>
+                <div class="loading-bar">
+                    <div class="loading-progress" id="loadingProgress"></div>
+                </div>
+                <p class="loading-text">正在加载...</p>
+            </div>
+        </div>
+        
+        <!-- 首次引导弹窗 -->
+        <div class="tutorial-modal" id="tutorialModal">
+            <div class="modal-content">
+                <div class="modal-icon">📖</div>
+                <h2>欢迎来到记忆翻牌！</h2>
+                <div class="tutorial-steps">
+                    <div class="tutorial-step">
+                        <span class="step-number">1</span>
+                        <p>点击卡牌翻开查看图案</p>
+                    </div>
+                    <div class="tutorial-step">
+                        <span class="step-number">2</span>
+                        <p>找出两张相同图案的卡牌</p>
+                    </div>
+                    <div class="tutorial-step">
+                        <span class="step-number">3</span>
+                        <p>配对所有卡牌即可获胜</p>
+                    </div>
+                </div>
+                <label class="dont-show-again">
+                    <input type="checkbox" id="dontShowTutorial">
+                    <span>不再显示引导</span>
+                </label>
+                <button class="modal-btn" id="closeTutorial">开始游戏</button>
+            </div>
+        </div>
+        
         <!-- 卡牌网格容器 -->
         <main class="game-board" id="gameBoard">
             <!-- 卡牌将由 JavaScript 动态生成 -->
@@ -83,7 +184,7 @@
                 <span class="effect-text">真棒！</span>
                 <div class="particles">
                     <span class="particle">✨</span>
-                    <span class="particle">🌟</span>
+                    <span class="particle"></span>
                     <span class="particle">💫</span>
                     <span class="particle">⭐</span>
                     <span class="particle">✨</span>
@@ -110,7 +211,52 @@
                         <span class="stat-value">--:--</span>
                     </div>
                 </div>
+                <!-- 分享按钮 -->
+                <div class="share-section">
+                    <button class="modal-btn secondary" id="shareBtn">
+                        <i class="fas fa-share-alt"></i>
+                        分享成绩
+                    </button>
+                </div>
                 <button class="modal-btn" id="playAgainBtn">再玩一次</button>
+            </div>
+        </div>
+        
+        <!-- 成就弹窗 -->
+        <div class="achievement-modal" id="achievementModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>🏅 成就系统</h2>
+                    <button class="close-btn" id="closeAchievement">×</button>
+                </div>
+                <div class="achievement-list" id="achievementList">
+                    <!-- 成就将由 JavaScript 动态生成 -->
+                </div>
+            </div>
+        </div>
+        
+        <!-- 成就解锁通知 -->
+        <div class="achievement-notification" id="achievementNotification">
+            <div class="notification-content">
+                <div class="notification-icon">🏆</div>
+                <div class="notification-text">
+                    <h4>成就解锁！</h4>
+                    <p id="achievementName"></p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 昵称输入弹窗 -->
+        <div class="nickname-modal" id="nicknameModal">
+            <div class="modal-content">
+                <div class="modal-icon">👤</div>
+                <h2>留下你的名字</h2>
+                <p>你的成绩将记录在排行榜上</p>
+                <input type="text" id="nicknameInput" placeholder="请输入昵称" maxlength="20">
+                <div class="modal-buttons">
+                    <button class="modal-btn secondary" id="skipNickname">跳过</button>
+                    <button class="modal-btn" id="saveNickname">保存</button>
+                </div>
             </div>
         </div>
         
@@ -124,6 +270,7 @@
                 <div class="leaderboard-tabs">
                     <button class="tab-btn active" data-tab="easy">简单模式</button>
                     <button class="tab-btn" data-tab="hard">困难模式</button>
+                    <button class="tab-btn" data-tab="extreme">极限模式</button>
                 </div>
                 <div class="leaderboard-content">
                     <div class="leaderboard-list" id="leaderboardList">
@@ -131,6 +278,26 @@
                     </div>
                 </div>
                 <button class="modal-btn secondary" id="clearLeaderboard">清空记录</button>
+            </div>
+        </div>
+        
+        <!-- 简历弹窗 -->
+        <div class="resume-modal" id="resumeModal">
+            <div class="resume-modal-content">
+                <div class="resume-header">
+                    <h2>📄 个人简历</h2>
+                    <button class="close-btn" id="closeResume">×</button>
+                </div>
+                <div class="resume-embed">
+                    <iframe src="简历.pdf" type="application/pdf" width="100%" height="100%">
+                        <p>您的浏览器不支持PDF预览，请<a href="简历.pdf" download>下载简历</a>查看。</p>
+                    </iframe>
+                </div>
+                <div class="resume-actions">
+                    <a href="简历.pdf" download class="modal-btn secondary">
+                        <i class="fas fa-download"></i> 下载简历
+                    </a>
+                </div>
             </div>
         </div>
     </div>
