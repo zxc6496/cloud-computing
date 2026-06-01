@@ -13,7 +13,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 1000;
+    z-index: 1001;
     overflow: hidden;
 }
 
@@ -311,9 +311,6 @@
     position: relative;
     z-index: 11;
     background: rgba(0, 255, 249, 0.1);
-}
-    align-items: center;
-    gap: 8px;
 }
 
 .option-link:hover {

@@ -9,10 +9,10 @@
 // --------------------------
 const CONFIG = {
     cardPatterns: [
-        '🎮', '🎯', '🎨', '🎭', '', '🎰', '🎲', '🎸',
-        '🦋', '🌸', '🌺', '', '⭐', '🌈', '🔥', '💎',
-        '', '⚡', '💫', '🎵', '🎼', '', '🎺', '🎻',
-        '🦄', '🐉', '🌟', '💜', '', '🎈', '🎀', '💝'
+        '\u{1F3AE}', '\u{1F3AF}', '\u{1F3A8}', '\u{1F3AD}', '\u{1F3AA}', '\u{1F3B0}', '\u{1F3B2}', '\u{1F3B8}',
+        '\u{1F98B}', '\u{1F338}', '\u{1F33A}', '\u{1F319}', '\u{2B50}', '\u{1F308}', '\u{1F525}', '\u{1F48E}',
+        '\u{1F680}', '\u{26A1}', '\u{1F4AB}', '\u{1F3B5}', '\u{1F3BC}', '\u{1F3B9}', '\u{1F3BA}', '\u{1F3BB}',
+        '\u{1F984}', '\u{1F409}', '\u{1F31F}', '\u{1F49C}', '\u{1F381}', '\u{1F388}', '\u{1F380}', '\u{1F49D}'
     ],
     
     difficulties: {
@@ -35,33 +35,33 @@ const CONFIG = {
     achievements: [
         {
             id: 'first_win',
-            name: '初次胜利',
-            description: '完成第一次游戏',
-            icon: '🎉'
+            name: '\u521D\u6B21\u80DC\u5229',
+            description: '\u5B8C\u6210\u7B2C\u4E00\u6B21\u6E38\u620F',
+            icon: '\u{1F389}'
         },
         {
             id: 'speed_demon',
-            name: '速度之王',
-            description: '在60秒内完成简单难度',
-            icon: ''
+            name: '\u901F\u5EA6\u4E4B\u738B',
+            description: '\u572860\u79D2\u5185\u5B8C\u6210\u7B80\u5355\u96BE\u5EA6',
+            icon: '\u{26A1}'
         },
         {
             id: 'perfect_score',
-            name: '完美表现',
-            description: '连续配对5次不失误',
-            icon: '🏆'
+            name: '\u5B8C\u7F8E\u8868\u73B0',
+            description: '\u8FDE\u7EED\u914D\u5BF95\u6B21\u4E0D\u5931\u8BEF',
+            icon: '\u{1F3C6}'
         },
         {
             id: 'master_player',
-            name: '游戏大师',
-            description: '完成困难难度',
-            icon: ''
+            name: '\u6E38\u620F\u5927\u5E08',
+            description: '\u5B8C\u6210\u56F0\u96BE\u96BE\u5EA6',
+            icon: '\u{1F451}'
         },
         {
             id: 'combo_king',
-            name: '连击之王',
-            description: '达成3连击',
-            icon: '🔥'
+            name: '\u8FDE\u51FB\u4E4B\u738B',
+            description: '\u8FBE\u62103\u8FDE\u51FB',
+            icon: '\u{1F525}'
         }
     ]
 };
@@ -136,7 +136,7 @@ const SoundManager = {
         try {
             this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
         } catch (e) {
-            console.warn('Web Audio API 不支持，音效功能将被禁用');
+            console.warn('Web Audio API \u4E0D\u652F\u6301\uFF0C\u97F3\u6548\u529F\u80FD\u5C06\u88AB\u7981\u7528');
         }
     },
     
@@ -238,7 +238,7 @@ const Utils = {
         const record = {
             score,
             time,
-            name: name || '匿名玩家',
+            name: name || '\u533F\u540D\u73A9\u5BB6',
             date: new Date().toISOString().split('T')[0]
         };
         
@@ -351,7 +351,7 @@ const Game = {
         elements.closeAchievement.addEventListener('click', () => this.hideAchievements());
         
         elements.saveNickname.addEventListener('click', () => {
-            const name = elements.nicknameInput.value.trim() || '匿名玩家';
+            const name = elements.nicknameInput.value.trim() || '\u533F\u540D\u73A9\u5BB6';
             gameState.playerName = name;
             localStorage.setItem('memoryGamePlayerName', name);
             elements.nicknameModal.classList.remove('show');
@@ -591,7 +591,7 @@ const Game = {
         
         this.checkVictoryAchievements();
         
-        if (!gameState.playerName || gameState.playerName === '匿名玩家') {
+        if (!gameState.playerName || gameState.playerName === '\u533F\u540D\u73A9\u5BB6') {
             elements.nicknameModal.classList.add('show');
         } else {
             this.saveScoreAndShowVictory();
@@ -718,7 +718,7 @@ const Game = {
         const records = Utils.getLeaderboard(difficulty);
         
         if (records.length === 0) {
-            elements.leaderboardList.innerHTML = '<div class="no-records">暂无记录</div>';
+            elements.leaderboardList.innerHTML = '<div class="no-records">\u6682\u65E0\u8BB0\u5F55</div>';
             return;
         }
         
@@ -729,7 +729,7 @@ const Game = {
                     <div class="rank ${rankClass}">${index + 1}</div>
                     <div class="score-info">
                         <span class="player-name">${record.name}</span>
-                        <span class="score-text">${record.score} 分</span>
+                        <span class="score-text">${record.score} \u5206</span>
                         <span class="time-text">${Utils.formatTime(record.time)}</span>
                     </div>
                 </div>
@@ -738,7 +738,7 @@ const Game = {
     },
     
     handleClearLeaderboard() {
-        if (confirm('确定要清空所有记录吗？')) {
+        if (confirm('\u786E\u5B9A\u8981\u6E05\u7A7A\u6240\u6709\u8BB0\u5F55\u5417\uFF1F')) {
             Utils.clearLeaderboard();
             this.renderLeaderboard(gameState.difficulty);
             this.loadBestRecord();
@@ -772,11 +772,11 @@ const Game = {
     },
     
     shareScore() {
-        const shareText = `🎮 我在赛博朋克记忆翻牌游戏中获得了 ${gameState.score} 分！用时 ${Utils.formatTime(gameState.time)}，最高连击 ${gameState.maxCombo} 次！来挑战我吧！`;
+        const shareText = `\u{1F3AE} \u6211\u5728\u8D5B\u535A\u670B\u514B\u8BB0\u5FC6\u7FFB\u724C\u6E38\u620F\u4E2D\u83B7\u5F97\u4E86 ${gameState.score} \u5206\uFF01\u7528\u65F6 ${Utils.formatTime(gameState.time)}\uFF0C\u6700\u9AD8\u8FDE\u51FB ${gameState.maxCombo} \u6B21\uFF01\u6765\u6311\u6218\u6211\u5427\uFF01`;
         
         if (navigator.clipboard) {
             navigator.clipboard.writeText(shareText).then(() => {
-                alert('成绩已复制到剪贴板！');
+                alert('\u6210\u7EE9\u5DF2\u590D\u5236\u5230\u526A\u8D34\u677F\uFF01');
             }).catch(() => {
                 alert(shareText);
             });
