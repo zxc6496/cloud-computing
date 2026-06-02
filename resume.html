@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人简历</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+            color: #fff;
+            min-height: 100vh;
+            padding: 30px;
+            overflow-y: auto;
+        }
+
+        .resume-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: linear-gradient(135deg, rgba(26, 26, 46, 0.95), rgba(22, 33, 62, 0.95));
+            backdrop-filter: blur(20px);
+            border-radius: 16px;
+            border: 1px solid rgba(0, 255, 249, 0.3);
+            box-shadow: 
+                0 0 40px rgba(0, 255, 249, 0.15),
+                0 0 80px rgba(0, 255, 249, 0.05),
+                inset 0 0 30px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        .resume-header {
+            background: linear-gradient(135deg, 
+                rgba(0, 255, 249, 0.15) 0%, 
+                rgba(255, 0, 193, 0.15) 100%);
+            padding: 40px;
+            text-align: center;
+            border-bottom: 2px solid rgba(0, 255, 249, 0.3);
+            position: relative;
+        }
+
+        .resume-header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(0, 255, 249, 0.5), 
+                rgba(255, 0, 193, 0.5), 
+                rgba(0, 255, 249, 0.5), 
+                transparent);
+        }
+
+        .resume-header {
+            background: linear-gradient(135deg, 
+                rgba(0, 255, 249, 0.15) 0%, 
+                rgba(255, 0, 193, 0.15) 100%);
+            padding: 30px 40px;
+            border-bottom: 2px solid rgba(0, 255, 249, 0.3);
+            position: relative;
+        }
+
+        .resume-header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(0, 255, 249, 0.5), 
+                rgba(255, 0, 193, 0.5), 
+                rgba(0, 255, 249, 0.5), 
+                transparent);
+        }
+
+        .resume-header .name-section {
+            text-align: center;
+        }
+
+        .resume-header h1 {
+            font-size: 2rem;
+            background: linear-gradient(135deg, #00fff9, #ff00c1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 5px;
+        }
+
+        .resume-header .subtitle {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1rem;
+            margin-bottom: 15px;
+        }
+
+        .header-info {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+        }
+
+        .header-info span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .header-info i {
+            color: #00fff9;
+        }
+
+        .resume-body {
+            padding: 30px 40px;
+        }
+
+        .section {
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            font-size: 1.3rem;
+            color: #00fff9;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(0, 255, 249, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title i {
+            color: #ff00c1;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px;
+            background: rgba(0, 255, 249, 0.05);
+            border-radius: 8px;
+            border: 1px solid rgba(0, 255, 249, 0.1);
+        }
+
+        .info-item i {
+            color: #00fff9;
+            width: 20px;
+            text-align: center;
+        }
+
+        .info-item .label {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+        }
+
+        .info-item .value {
+            color: #fff;
+            font-weight: 500;
+        }
+
+        .experience-item {
+            padding: 15px;
+            background: rgba(0, 255, 249, 0.05);
+            border-radius: 8px;
+            border-left: 3px solid #00fff9;
+            margin-bottom: 15px;
+        }
+
+        .experience-item h4 {
+            color: #00fff9;
+            margin-bottom: 5px;
+        }
+
+        .experience-item .time {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.85rem;
+            margin-bottom: 8px;
+        }
+
+        .experience-item p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .skill-tag {
+            padding: 8px 16px;
+            background: linear-gradient(135deg, rgba(0, 255, 249, 0.15), rgba(255, 0, 193, 0.15));
+            border: 1px solid rgba(0, 255, 249, 0.3);
+            border-radius: 20px;
+            color: #00fff9;
+            font-size: 0.9rem;
+        }
+
+        .projects {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .project-item {
+            padding: 15px;
+            background: rgba(0, 255, 249, 0.05);
+            border-radius: 8px;
+            border: 1px solid rgba(0, 255, 249, 0.1);
+        }
+
+        .project-item h4 {
+            color: #ff00c1;
+            margin-bottom: 8px;
+        }
+
+        .project-item p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 15px;
+            }
+
+            .resume-header {
+                padding: 25px;
+            }
+
+            .resume-body {
+                padding: 20px;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .projects {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="resume-container">
+        <div class="resume-header">
+            <div class="name-section">
+                <h1>程良霖</h1>
+                <p class="subtitle">应届毕业生 · 人工智能训练师</p>
+                <div class="header-info">
+                    <span><i class="fas fa-phone"></i> 13720838939</span>
+                    <span><i class="fas fa-envelope"></i> 1931293463@qq.com</span>
+                    <span><i class="fas fa-map-marker-alt"></i> 福州</span>
+                    <span><i class="fas fa-yen-sign"></i> 5000</span>
+                    <span><i class="fas fa-graduation-cap"></i> 大专</span>
+                    <span><i class="fab fa-github"></i> <a href="https://github.com/zxc6496/cloud-computing" target="_blank" style="color: #00fff9;">GitHub</a></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="resume-body">
+            <div class="section">
+                <h3 class="section-title"><i class="fas fa-graduation-cap"></i> 教育经历</h3>
+                <div class="experience-item">
+                    <h4>福州软件职业技术学院 · 人工智能技术应用</h4>
+                    <p class="time">2024.09 - 至今 · 大专 · 全日制 · 智能产业学院 · 福州</p>
+                    <p>• 2024-2025上学期获得"一等奖学金"</p>
+                    <p>• 2024-2025下学期获得"一等奖学金"</p>
+                    <p>• 2025-2026上学期获得"一等奖学金"</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h3 class="section-title"><i class="fas fa-briefcase"></i> 项目经历</h3>
+                <div class="experience-item">
+                    <h4>AI智能驱鸟</h4>
+                    <p class="time">2025.09 - 2025.12 · 项目经理 · 福州</p>
+                    <p>1. 负责 AI 驱鸟系统硬件集成与现场部署工作，完成传感设备布设、网络调试、功能联调等实操任务。</p>
+                    <p>2. 主动对接项目组各成员，及时反馈现场问题、配合后台技术团队优化运行参数。</p>
+                    <p>3. 团队成员各司其职、相互补位，高效完成设备安装、试运行及验收工作，确保智能驱鸟系统稳定发挥防护作用。</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h3 class="section-title"><i class="fas fa-trophy"></i> 荣誉奖项</h3>
+                <div class="experience-item">
+                    <p>1. 2025年12月获福建省第十九届计算机软件设计大赛优秀奖</p>
+                    <p>2. 2025年暑期"青春三下乡，志愿返家乡"走进火车站社会实践活动中获"优秀志愿者"</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

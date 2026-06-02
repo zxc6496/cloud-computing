@@ -2,7 +2,11 @@
 
 一个具有现代UI设计和丰富功能的网页记忆翻牌游戏，采用赛博朋克风格设计。
 
-## ✨ 功能特色
+## 🎮 直接开始游戏
+
+[![开始游戏](https://img.shields.io/badge/%F0%9F%8E%AE-%E7%82%B9%E5%87%BB%E8%BF%99%E9%87%8C%E5%BC%80%E5%A7%8B%E6%B8%B8%E6%88%8F-brightgreen?style=for-the-badge&logo=github)](https://zxc6496.github.io/cloud-computing/)
+
+**👆 点击上面按钮直接开始游戏！**
 
 ### 🎯 核心功能
 - **随机生成的卡牌组合
