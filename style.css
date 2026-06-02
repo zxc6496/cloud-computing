@@ -102,11 +102,9 @@
 @keyframes cardPulse {
     0%, 100% {
         filter: brightness(1);
-        transform: rotateY(180deg) !important;
     }
     50% {
         filter: brightness(1.3);
-        transform: rotateY(180deg) !important;
     }
 }
 
@@ -403,11 +401,11 @@ body {
 
 .card.matched {
     pointer-events: none;
+    animation: cardPulse 1s ease-in-out infinite;
 }
 
 .card.matched .card-inner {
     transform: rotateY(180deg) !important;
-    animation: cardPulse 1s ease-in-out infinite;
 }
 
 .card-front,
