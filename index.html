@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Memory Card Game - 记忆翻牌游戏</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="start-screen.css">
+    <link rel="stylesheet" href="style.css?v=4">
+    <link rel="stylesheet" href="start-screen.css?v=4">
     <!-- 引入图标库 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
@@ -22,10 +22,10 @@
                 
                 <div class="start-visual">
                     <div class="floating-cards">
-                        <div class="card-float">🧠</div>
+                        <div class="card-float"></div>
                         <div class="card-float">⚡</div>
                         <div class="card-float">🎮</div>
-                        <div class="card-float">🔮</div>
+                        <div class="card-float"></div>
                     </div>
                 </div>
                 
@@ -149,7 +149,7 @@
         </div>
         
         <!-- 首次引导弹窗 -->
-        <div class="modal tutorial-modal" id="tutorialModal">
+        <div class="tutorial-modal" id="tutorialModal">
             <div class="modal-content">
                 <div class="modal-icon">📖</div>
                 <h2>欢迎来到记忆翻牌！</h2>
@@ -193,7 +193,7 @@
         </main>
         
         <!-- 胜利弹窗 -->
-        <div class="modal victory-modal" id="victoryModal">
+        <div class="victory-modal" id="victoryModal">
             <div class="modal-content">
                 <div class="modal-icon">🎉</div>
                 <h2>恭喜通关！</h2>
@@ -223,7 +223,7 @@
         </div>
         
         <!-- 成就弹窗 -->
-        <div class="modal achievement-modal" id="achievementModal">
+        <div class="achievement-modal" id="achievementModal">
             <div class="modal-content">
                 <div class="modal-header">
                     <h2>🏅 成就系统</h2>
@@ -238,7 +238,7 @@
         <!-- 成就解锁通知 -->
         <div class="achievement-notification" id="achievementNotification">
             <div class="notification-content">
-                <div class="notification-icon">🏆</div>
+                <div class="modal-icon">🏆</div>
                 <div class="notification-text">
                     <h4>成就解锁！</h4>
                     <p id="achievementName"></p>
@@ -247,7 +247,7 @@
         </div>
         
         <!-- 昵称输入弹窗 -->
-        <div class="modal nickname-modal" id="nicknameModal">
+        <div class="nickname-modal" id="nicknameModal">
             <div class="modal-content">
                 <div class="modal-icon">👤</div>
                 <h2>留下你的名字</h2>
@@ -261,7 +261,7 @@
         </div>
         
         <!-- 排行榜弹窗 -->
-        <div class="modal leaderboard-modal" id="leaderboardModal">
+        <div class="leaderboard-modal" id="leaderboardModal">
             <div class="modal-content">
                 <div class="modal-header">
                     <h2>🏆 排行榜</h2>
@@ -282,20 +282,20 @@
         </div>
         
         <!-- 简历弹窗 -->
-        <div class="modal resume-modal" id="resumeModal">
+        <div class="resume-modal" id="resumeModal">
             <div class="resume-modal-content">
                 <div class="resume-header">
                     <h2>📄 个人简历</h2>
                     <button class="close-btn" id="closeResume">×</button>
                 </div>
                 <div class="resume-embed">
-                    <iframe src="resume.html" width="100%" height="100%" style="border: none; border-radius: 10px;">
-                        <p>您的浏览器不支持iframe预览，请<a href="resume.html" target="_blank">查看简历</a>。</p>
+                    <iframe src="简历.pdf" type="application/pdf" width="100%" height="100%">
+                        <p>您的浏览器不支持PDF预览，请<a href="简历.pdf" download>下载简历</a>查看。</p>
                     </iframe>
                 </div>
                 <div class="resume-actions">
-                    <a href="resume.html" target="_blank" class="modal-btn secondary">
-                        <i class="fas fa-external-link-alt"></i> 查看简历
+                    <a href="简历.pdf" download class="modal-btn secondary">
+                        <i class="fas fa-download"></i> 下载简历
                     </a>
                 </div>
             </div>
